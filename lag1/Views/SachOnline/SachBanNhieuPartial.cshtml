@@ -1,0 +1,24 @@
+﻿@model IEnumerable<lag1.Models.SACH>
+<h2 class="text-center">SACH BAN NHIEU</h2>
+<div class="row">
+    <div class="col-lg-6 col-md-6">
+        <div class="media-object-default">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
+                    <div class="thumbnail">
+                        <img src="~/Images/@item.AnhBia" alt="Thumbnail Image 1" class="img-responsive img-rounded imgbook" style="width:500px">
+                        <div class="caption">
+                            <h4 style="min-height:70px;">
+                                <a href="@Url.Action("BookDetail","SachOnline", new {id=item.MaSach})">@item.TenSach</a>
+                            </h4>
+                            <p>@item.MoTa</p>
+                            <p><a href="#" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>Add to cart</a></p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<hr>

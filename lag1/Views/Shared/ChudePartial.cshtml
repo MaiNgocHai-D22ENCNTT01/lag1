@@ -1,0 +1,9 @@
+﻿@model IEnumerable<lag1.Models.CHUDE>
+<ul class="list-group">
+    <li class="list-group-item active" style="font-weight:bold; text-align:center">Sach theo chu de</li>
+    @foreach (var item in Model)
+    {
+        <a href="@Url.Action("SachTheoChuDe","SachOnline",new { id = item.MaCD })" class="list-group-item">@item.TenChuDe</a>
+    }
+</ul>
+
