@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Sach_Online.Models.SACH>
+
+<head>
+    <link rel="stylesheet" href="~/Content/Demo.css">
+    <style>
+        .row {
+            display: flex;
+            flex-wrap: wrap; /* Ensure the items wrap properly */
+        }
+
+        .col-sm-4, .col-md-4, .col-lg-4, .col-xs-6 {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .thumbnail {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%; /* Make sure the thumbnail fills the column */
+        }
+
+            .thumbnail img {
+                width: 200px; /* Fixed width for image */
+                height: auto;
+                margin: 0 auto;
+            }
+
+        .caption {
+            flex-grow: 1; /* Makes the caption stretch to fill the available space */
+        }
+
+            .caption h4 {
+                height: 60px; /* Set a fixed height for the title */
+                overflow: hidden; /* Hide overflow if the title is too long */
+            }
+
+            .caption p {
+                height: 80px; /* Set a fixed height for the description */
+                overflow: hidden; /* Hide overflow if description is too long */
+            }
+    </style>
+</head>
+
+<h2 class="text-center">BESTSELLING BOOKS</h2>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
+            <div class="thumbnail">
+                <img src="~/Images/@item.AnhBia" alt="Thumbnail Image 1" class="img-responsive img-rounded imgbook">
+                <div class="caption">
+                    <h4 style="text-align: center;">
+                        <a href="@Url.Action("BookDetail", "SachOnline", new { id = item.MaSach })" style="display: block;">@item.TenSach</a>
+                    </h4>
+                    <p>@item.MoTa</p>
+                    <p>
+                        <a href="@Url.Action("ThemGioHang", "GioHang", new { ms = item.MaSach, url = Request.Url.ToString() })" class="btn btn-primary shadow-0 me-2">
+                            <i class="bi bi-cart3 me-1"></i> Add Cart
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

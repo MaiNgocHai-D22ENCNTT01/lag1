@@ -1,0 +1,89 @@
+﻿@using Sach_Online.Models
+@{
+    ViewBag.Title = "Order";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<h2 style="text-align:center;">Order</h2>
+
+<table align="center" border="1" style="width:80%; margin-top:20px; border-collapse:collapse;">
+    <thead style="background-color:#f2f2f2;">
+        <tr style="text-align:center; font-weight:bold;">
+            <td style="padding:10px;">Book ID</td>
+            <td style="padding:10px;">Book Name</td>
+            <td style="padding:10px;">Cover Image</td>
+            <td style="padding:10px;">Quantity</td>
+            <td style="padding:10px;">Price</td>
+            <td style="padding:10px;">Total</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr style="text-align:center;">
+                <td style="padding:10px;">@item.iMaSach</td>
+                <td style="padding:10px;">@item.sTenSach</td>
+                <td style="padding:10px;"><img src="~/Images/@item.sAnhBia" style="width:100px;" alt="Cover Image"></td>
+                @using (Html.BeginForm("CapNhatGioHang", "GioHang", new { iMaSach = item.iMaSach }))
+                {
+                    <td style="padding:10px;">@item.iSoLuong</td>
+                    <td style="padding:10px;">@string.Format("{0:#,##0,0}", item.dDonGia) VND</td>
+                    <td style="padding:10px;">@string.Format("{0:#,##0,0}", item.dThanhTien) VND</td>
+                }
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr style="font-weight:bold; color:red;">
+            <td colspan="3" style="text-align:right; padding-right:15px;">Total Quantity: @string.Format("{0:#,##0}", ViewBag.TongSoLuong)</td>
+            <td colspan="3" style="text-align:center;">Total Price: @string.Format("{0:#,##0,0}", ViewBag.TongTien) VND</td>
+        </tr>
+        <tr style="font-weight:bold; color:blue;">
+            <td colspan="6" style="text-align:right; padding:15px;">
+                @Html.ActionLink("BACK TO CART", "GioHang", "GioHang", new { }, new { style = "color:blue; text-decoration:none;" })
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+<h2 style="text-align:center; margin-top:30px;">Order Information</h2>
+
+@{
+    KHACHHANG kh = (KHACHHANG)Session["TaiKhoan"];
+}
+
+<table align="center" style="width:50%; margin-top:20px; border-spacing: 10px;">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <tr>
+            <td style="font-weight:bold;">Customer Name:</td>
+            <td>@kh.HoTen</td>
+        </tr>
+        <tr>
+            <td style="font-weight:bold;">Address:</td>
+            <td>@kh.DiaChiKH</td>
+        </tr>
+        <tr>
+            <td style="font-weight:bold;">Phone Number:</td>
+            <td>@kh.DienThoaiKH</td>
+        </tr>
+        <tr>
+            <td style="font-weight:bold;">Order Date:</td>
+            <td>@DateTime.Now.ToShortDateString()</td>
+        </tr>
+        <tr>
+            <td style="font-weight:bold;">Delivery Date:</td>
+            <td>
+                <input type="date" name="NgayGiao" style="width:100%;" />
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="text-align:center;">
+                <input type="submit" value="Place Order" style="padding:10px 20px; background-color:green; color:white; border:none; cursor:pointer;" />
+            </td>
+        </tr>
+    }
+</table>

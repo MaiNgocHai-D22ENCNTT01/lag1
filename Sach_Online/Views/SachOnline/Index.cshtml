@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Sach_Online.Models.SACH>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/Demo.css">
+<h2 style="padding-left: 630px;">BOOK NEW</h2>
+
+
+<hr>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-12">
+            <div class="sidebar">
+                @Html.Action("ChuDePartial", "SachOnline")
+                <br />
+                @Html.Action("NXBPartical", "SachOnline")
+            </div>
+        </div>
+
+
+        <div class="col-lg-9 col-md-9 col-sm-12">
+            <div class="row text-center">
+                @foreach (var item in Model)
+                {
+                    <div class="col-sm-6 col-md-4 col-lg-4 col-xs-6 mb-4">
+                        <div class="thumbnail shadow-sm border rounded">
+                            <img src="~/Images/@item.AnhBia" alt="@item.TenSach" class="img-responsive img-rounded imgbook" style="width:150px; height:auto;">
+                            <div class="caption mt-2">
+                                <h4 style="min-height: 70px">
+                                    <a href="@Url.Action("Chitietsach", "SachOnline", new { id = item.MaSach })" class="text-dark text-decoration-none">@item.TenSach</a>
+                                </h4>
+                                <a href="@Url.Action("ThemGioHang", "GioHang", new { ms = item.MaSach, url = Request.Url.ToString() })" class="btn btn-primary shadow-0 me-2">
+                                    <i class="bi bi-cart3 me-1"></i> Add to Cart
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+
+            <nav class="text-center mt-4">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item disabled"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div>
+    @section SachBanNhieu {
+        @Html.Action("SachBanNhieuPartical", "SachOnline")
+    }
+</div>

@@ -1,0 +1,67 @@
+﻿@using Sach_Online.Models
+@model List<GioHang>
+@{
+    ViewBag.Title = "Shopping Cart";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<h2 class="text-center">Shopping Cart Information</h2>
+
+<div class="container mt-4">
+
+
+    <table class="table table-bordered table-hover" style="font-size: 14px; table-layout: fixed;">
+        <thead class="thead-dark">
+            <tr style="text-align: center;">
+                <th style="width: 10%;">Book ID</th>
+                <th style="width: 25%;">Book Name</th>
+                <th style="width: 15%;">Cover Image</th>
+                <th style="width: 10%;">Quantity</th>
+                <th style="width: 15%;">Unit Price</th>
+                <th style="width: 15%;">Total Price</th>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center align-middle">@item.iMaSach</td>
+                    <td class="align-middle">@item.sTenSach</td>
+                    <td class="text-center align-middle">
+                        <img src="~/Images/@item.sAnhBia" class="img-thumbnail" style="width: 80px; height: auto;">
+                    </td>
+                    <td class="text-center align-middle">@item.iSoLuong</td>
+                    <td class="text-center align-middle">@string.Format("{0:#,##0}", item.dDonGia) VNĐ</td>
+                    <td class="text-center align-middle">@string.Format("{0:#,##0}", item.dThanhTien) VNĐ</td>
+                    <td><a href="@Url.Action("Chitietsach","SachOnline", new {id = item.iMaSach})">Details</a></td>
+
+                </tr>
+            }
+            <tr>
+                <td colspan="4" class="text-right text-danger font-weight-bold">
+                    Total Quantity: @string.Format("{0:#,##0}", ViewBag.TongSoLuong)
+                </td>
+                <td colspan="4" class="text-center text-danger font-weight-bold">
+                    Total Price: @string.Format("{0:#,##0}", ViewBag.TongTien) VNĐ
+                </td>
+            <tr style="font-weight:bold; color: cornflowerblue; text-align:right">
+                <td colspan="9">
+                    @Html.ActionLink("Delete", "DeleteCart")
+                </td>
+            </tr>
+
+            <tr style="font-weight:bold; color: cornflowerblue; text-align:center">
+                <td colspan="9">
+                    @Html.ActionLink("ORDER ", "Order","GioHang")
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-center mt-4">
+        <a href="@Url.Action("Index", "SachOnline")" class="btn btn-primary">
+            <i class="fas fa-home"></i> Back to Home
+        </a>
+    </div>
+</div>

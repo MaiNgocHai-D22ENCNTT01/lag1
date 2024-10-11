@@ -1,0 +1,87 @@
+﻿<!-- Chitietsach.cshtml -->
+@model Sach_Online.Models.SACH
+@{
+    ViewBag.Title = "Chitietsach";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="~/Content/Demo.css">
+</head>
+
+<!-- content -->
+<section class="py-5">
+    <div class="container">
+        <div class="row gx-5">
+            <aside class="col-lg-4">
+                <div class="border rounded-4 mb-3 d-flex justify-content-center">
+                    <a data-fslightbox="mygalley" class="rounded-4" target="_blank" data-type="image" href="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big.webp">
+                        <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="~/Images/@Model.AnhBia" />
+                    </a>
+                </div>
+            </aside>
+            <main class="col-lg-8">
+                <div class="ps-lg-3">
+                    <h3 class="title text-dark">
+                        @Model.TenSach
+                    </h3>
+
+                    <div class="mb-3">
+                        <span class="h3"><strong>@Model.GiaBan /VNĐ</strong></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <dt class="col-3">Description</dt>
+                        <dd class="col-9 description">@Model.MoTa</dd>
+                    </div>
+
+                    <p class="col-3" "><strong>Ngày cập nhật: </strong>@String.Format("{0:dd/MM/yyyy}", @Model.NgayCapNhat)</p>
+
+                    <!-- Center the quantity input -->
+                    <div class="d-flex flex-column align-items-center">
+                        <label class="mb-2">Số lượng</label>
+                        <div class="input-group mb-3 justify-content-center" style="width: 300px;">
+                            <button class="btn btn-white border border-secondary px-3" type="button" id="decrease-btn" data-mdb-ripple-color="dark">
+                                <i class="bi bi-dash"></i>
+                            </button>
+                            <input type="text" id="quantity-input" class="form-control text-center border border-secondary" value="14" aria-label="Số lượng" style="width: 100px" />
+                            <button class="btn btn-white border border-secondary px-3" type="button" id="increase-btn" data-mdb-ripple-color="dark">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <script>
+                        $(document).ready(function () {
+                            // Xử lý khi bấm nút tăng
+                            $('#increase-btn').click(function () {
+                                let currentValue = parseInt($('#quantity-input').val());
+                                $('#quantity-input').val(currentValue + 1);
+                            });
+
+                            // Xử lý khi bấm nút giảm
+                            $('#decrease-btn').click(function () {
+                                let currentValue = parseInt($('#quantity-input').val());
+                                if (currentValue > 1) { // Không cho giảm dưới 1
+                                    $('#quantity-input').val(currentValue - 1);
+                                }
+                            });
+                        });
+                    </script>
+
+                    <p>
+                        <div class="d-flex justify-content-end mt-3" style="width: 100%;">
+                            <a href="#" class="btn btn-warning shadow-0 me-2">Buy</a>
+                            <a href="@Url.Action("ThemGioHang", "GioHang", new { ms = Model.MaSach, url = Request.Url.ToString() })" class="btn btn-primary shadow-0 me-2">
+                                <i class="bi bi-cart3 me-1"></i> Add Cart
+                            </a>
+
+                            <a href="#" class="btn btn-light border border-secondary py-2 icon-hover px-3"><i class="bi bi-heart me-1"></i> Save </a>
+                        </div>
+                    </p>
+                  
+                </div>
+            </main>
+        </div>
+    </div>
+</section>

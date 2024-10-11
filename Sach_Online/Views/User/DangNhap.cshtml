@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "DangNhap";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="~/Content/Demo.css">
+</head>
+
+<h4 class="error-message text-center">@ViewBag.ThongBao</h4>
+
+<div class="form-container">
+    @using (Html.BeginForm("DangNhap", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+        <div class="form-group">
+            <label for="TenDN" class="control-label">Tên đăng nhập:</label>
+            @Html.TextBox("TenDN", null, new { @class = "form-control", @placeholder = "Nhập tên đăng nhập" })
+            <span class="text-danger">@ViewData["Err1"]</span>
+        </div>
+
+        <div class="form-group">
+            <label for="MatKhau" class="control-label">Mật khẩu:</label>
+            @Html.Password("MatKhau", new { @class = "form-control", @placeholder = "Nhập mật khẩu" })
+            <span class="text-danger">@ViewBag.Err2</span>
+        </div>
+
+        <div class="form-group text-center">
+            <input type="submit" value="Đăng nhập" class="btn btn-primary btn-custom" />
+          
+        </div>
+    }
+</div>
